@@ -3264,8 +3264,8 @@ function Library:CreateWindow(...)
                 });
 
                 function Tab:Show()
-                    for _, Tab in next, Tabbox.Tabs do
-                        Tab:Hide();
+                    for _, TabItem in next, Tabbox.Tabs do
+                        TabItem:Hide();
                     end;
 
                     Container.Visible = true;
@@ -3280,7 +3280,7 @@ function Library:CreateWindow(...)
                 function Tab:Resize()
                     local TabCount = 0;
 
-                    for _, Tab in next, Tabbox.Tabs do
+                    for _, TabItem in next, Tabbox.Tabs do
                         TabCount = TabCount + 1;
                     end;
 
