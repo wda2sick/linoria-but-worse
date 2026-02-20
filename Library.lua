@@ -361,7 +361,7 @@ function Library:Unload()
     end
 
     if Lighting:FindFirstChild("TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol") then
-        Library.TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol:Destroy()
+        Lighting.TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol:Destroy()
     end
 
     ScreenGui:Destroy()
