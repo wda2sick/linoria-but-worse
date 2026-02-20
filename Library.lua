@@ -360,6 +360,10 @@ function Library:Unload()
         Library.OnUnload()
     end
 
+    if Library.MenuBlur then
+        Library.MenuBlur:Destroy()
+    end
+
     ScreenGui:Destroy()
 end
 
@@ -3359,6 +3363,8 @@ function Library:CreateWindow(...)
         Size = 0;
         Parent = Lighting;
     });
+
+    Library.MenuBlur = MenuBlur;
 
     function Library.Toggle()
         Outer.Visible = not Outer.Visible;
