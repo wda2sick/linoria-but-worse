@@ -3013,10 +3013,6 @@ function Library:CreateWindow(...)
             BackgroundColor3 = 'AccentColor';
         });
 
-        Library:AddToRegistry(Blocker, {
-            BackgroundColor3 = 'MainColor';
-        });
-
         local TabFrame = Library:Create('Frame', {
             Name = 'TabFrame',
             BackgroundTransparency = 1;
