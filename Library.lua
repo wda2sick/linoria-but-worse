@@ -357,7 +357,7 @@ function Library:Unload()
     end
 
     if Library.MenuBlur and Library.MenuBlur.Parent then
-        pcall(function() Library.MenuBlur:Destroy() end)
+        pcall(function() Library.MenuBlur.Size = 0 end)
         Library.MenuBlur = nil
     end
 
