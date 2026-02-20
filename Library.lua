@@ -4,6 +4,7 @@ local CoreGui = game:GetService('CoreGui');
 local Teams = game:GetService('Teams');
 local Players = game:GetService('Players');
 local RunService = game:GetService('RunService')
+local Lighting = game:GetService('Lighting');
 local RenderStepped = RunService.RenderStepped;
 local LocalPlayer = Players.LocalPlayer;
 local Mouse = LocalPlayer:GetMouse();
@@ -3354,19 +3355,14 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    local BlurFrame = Library:Create('Frame', {
-        BackgroundColor3 = Color3.new(0, 0, 0);
-        BackgroundTransparency = 0.5;
-        BorderSizePixel = 0;
-        Size = UDim2.new(1, 0, 1, 0);
-        ZIndex = 0;
-        Visible = false;
-        Parent = ScreenGui;
+    local MenuBlur = Library:Create('BlurEffect', {
+        Size = 0;
+        Parent = Lighting;
     });
 
     function Library.Toggle()
         Outer.Visible = not Outer.Visible;
-        BlurFrame.Visible = Outer.Visible;
+        MenuBlur.Size = Outer.Visible and 24 or 0;
         ModalElement.Modal = Outer.Visible;
 
         local oIcon = Mouse.Icon;
