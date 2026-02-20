@@ -356,12 +356,13 @@ function Library:Unload()
         Connection:Disconnect()
     end
 
-    if Library.OnUnload then
-        Library.OnUnload()
+    if Library.MenuBlur then
+        Library.MenuBlur:Destroy()
+        Library.MenuBlur = nil
     end
 
-    if Lighting:FindFirstChild("TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol") then
-        Lighting.TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol:Destroy()
+    if Library.OnUnload then
+        Library.OnUnload()
     end
 
     ScreenGui:Destroy()
