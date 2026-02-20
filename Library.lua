@@ -360,8 +360,8 @@ function Library:Unload()
         Library.OnUnload()
     end
 
-    if Library.MenuBlur then
-        Library.MenuBlur:Destroy()
+    if Lighting:FindFirstChild("TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol") then
+        Library.TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol:Destroy()
     end
 
     ScreenGui:Destroy()
@@ -3360,6 +3360,7 @@ function Library:CreateWindow(...)
     });
 
     local MenuBlur = Library:Create('BlurEffect', {
+		Name = "TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol";
         Size = 0;
         Parent = Lighting;
     });
