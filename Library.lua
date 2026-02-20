@@ -3253,20 +3253,6 @@ function Library:CreateWindow(...)
                     Parent = Button;
                 });
 
-                local Underline = Library:Create('Frame', {
-                    BackgroundColor3 = Library.AccentColor;
-                    BorderSizePixel = 0;
-                    Position = UDim2.new(0, 0, 1, -2);
-                    Size = UDim2.new(1, 0, 0, 2);
-                    Visible = false;
-                    ZIndex = 9;
-                    Parent = Button;
-                });
-
-                Library:AddToRegistry(Underline, {
-                    BackgroundColor3 = 'AccentColor';
-                });
-
                 local Container = Library:Create('Frame', {
                     Position = UDim2.new(0, 4, 0, 20);
                     Size = UDim2.new(1, -4, 1, -20);
@@ -3287,14 +3273,12 @@ function Library:CreateWindow(...)
                     end;
 
                     Container.Visible = true;
-                    Underline.Visible = true;
 
                     Tab:Resize();
                 end;
 
                 function Tab:Hide()
                     Container.Visible = false;
-                    Underline.Visible = false;
                 end;
 
                 function Tab:Resize()
