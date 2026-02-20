@@ -346,18 +346,15 @@ function Library:UpdateColorsUsingRegistry()
 end;
 
 function Library:GiveSignal(Signal)
-    -- Only used for signals not attached to library instances, as those should be cleaned up on object destruction by Roblox
     table.insert(Library.Signals, Signal)
 end
 
 function Library:Unload()
-    -- Unload all of the signals
     for Idx = #Library.Signals, 1, -1 do
         local Connection = table.remove(Library.Signals, Idx)
         Connection:Disconnect()
     end
 
-     -- Call our unload callback, maybe to undo some hooks etc
     if Library.OnUnload then
         Library.OnUnload()
     end
@@ -413,7 +410,6 @@ do
             Parent = ToggleLabel;
         });
 
-        -- Transparency image taken from https://github.com/matas3535/SplixPrivateDrawingLibrary/blob/main/Library.lua cus i'm lazy
         local CheckerFrame = Library:Create('ImageLabel', {
             BorderSizePixel = 0;
             Size = UDim2.new(0, 27, 0, 13);
@@ -422,11 +418,6 @@ do
             Visible = not not Info.Transparency;
             Parent = DisplayFrame;
         });
-
-        -- 1/16/23
-        -- Rewrote this to be placed inside the Library ScreenGui
-        -- There was some issue which caused RelativeOffset to be way off
-        -- Thus the color picker would never show
 
         local PickerFrameOuter = Library:Create('Frame', {
             Name = 'Color';
@@ -962,7 +953,7 @@ do
         local KeyPicker = {
             Value = Info.Default;
             Toggled = false;
-            Mode = Info.Mode or 'Toggle'; -- Always, Toggle, Hold
+            Mode = Info.Mode or 'Toggle';
             Type = 'KeyPicker';
             Callback = Info.Callback or function(Value) end;
             ChangedCallback = Info.ChangedCallback or function(New) end;
@@ -1356,7 +1347,6 @@ do
     end;
 
     function Funcs:AddButton(...)
-        -- TODO: Eventually redo this
         local Button = {};
         local function ProcessButtonParams(Class, Obj, ...)
             local Props = select(1, ...)
@@ -1864,7 +1854,7 @@ do
 
         ToggleRegion.InputBegan:Connect(function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
-                Toggle:SetValue(not Toggle.Value) -- Why was it not like this from the start?
+                Toggle:SetValue(not Toggle.Value)
                 Library:AttemptSave();
             end;
         end);
@@ -2106,7 +2096,7 @@ do
             Value = Info.Multi and {};
             Multi = Info.Multi;
             Type = 'Dropdown';
-            SpecialType = Info.SpecialType; -- can be either 'Player' or 'Team'
+            SpecialType = Info.SpecialType;
             Callback = Info.Callback or function(Value) end;
         };
 
@@ -2714,8 +2704,9 @@ do
 
     local KeybindLabel = Library:CreateLabel({
         Size = UDim2.new(1, 0, 0, 20);
-        Position = UDim2.fromOffset(5, 2),
-        TextXAlignment = Enum.TextXAlignment.Left,
+        Position = UDim2.fromOffset(0, 2);
+        TextXAlignment = Enum.TextXAlignment.Center;
+        TextTransparency = 0.3;
 
         Text = 'Keybinds';
         ZIndex = 104;
@@ -3363,8 +3354,19 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
+    local BlurFrame = Library:Create('Frame', {
+        BackgroundColor3 = Color3.new(0, 0, 0);
+        BackgroundTransparency = 0.5;
+        BorderSizePixel = 0;
+        Size = UDim2.new(1, 0, 1, 0);
+        ZIndex = 0;
+        Visible = false;
+        Parent = ScreenGui;
+    });
+
     function Library.Toggle()
         Outer.Visible = not Outer.Visible;
+        BlurFrame.Visible = Outer.Visible;
         ModalElement.Modal = Outer.Visible;
 
         local oIcon = Mouse.Icon;
