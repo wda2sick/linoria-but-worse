@@ -356,11 +356,6 @@ function Library:Unload()
         Connection:Disconnect()
     end
 
-    if Library.MenuBlur and Library.MenuBlur.Parent then
-        pcall(function() Library.MenuBlur.Size = 0 end)
-        Library.MenuBlur = nil
-    end
-
     if Library.OnUnload then
         Library.OnUnload()
     end
@@ -3360,17 +3355,8 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    local MenuBlur = Library:Create('BlurEffect', {
-		Name = "TheUiMenuBlurThingyMadgigAndIHaveNoIdeaWhatToNameThisLol";
-        Size = 0;
-        Parent = Lighting;
-    });
-
-    Library.MenuBlur = MenuBlur;
-
     function Library.Toggle()
         Outer.Visible = not Outer.Visible;
-        MenuBlur.Size = Outer.Visible and 24 or 0;
         ModalElement.Modal = Outer.Visible;
 
         local oIcon = Mouse.Icon;
